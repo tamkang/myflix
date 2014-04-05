@@ -2,6 +2,7 @@ require 'spec_helper'
 describe QueueItem do
   it { should belong_to(:video) }
   it { should belong_to(:user) }
+  it { should validate_numericality_of(:position).only_integer}
 
   describe "#rating" do
   	it "returns the rating from the review when the review is present" do
