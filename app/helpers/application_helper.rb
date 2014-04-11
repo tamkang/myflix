@@ -7,4 +7,8 @@ module ApplicationHelper
   #   when :error, :alert then "alert alert-danger"
   #   end
   # end
+
+  def options_for_review_rating(selected=nil)
+  	options_for_select((1..5).map {|num| [pluralize(num, "Star"), num]}, selected)
+  end
 end
