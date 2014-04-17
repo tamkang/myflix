@@ -31,6 +31,7 @@ end
 
 group :test do
   gem 'shoulda-matchers'
+  gem 'capybara', '>=2.2.0.beta'
 end
 
 group :production do
