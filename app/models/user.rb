@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   has_many :reviews
   has_secure_password validations: false
   has_many :queue_items, order: :position
+  has_many :following_relationships, class_name: "Relationship", foreign_key: :follower_id
+
   validates :email, uniqueness: true, presence: true
   validates :fullname, presence: true
 
