@@ -25,6 +25,6 @@ Myflix::Application.routes.draw do
 
 
   resources :categories
-  resources :relationships, only: [:destroy]
+  resources :relationships, only: [:create, :destroy]
   resources :queue_items, only: [:create, :destroy]
 end
