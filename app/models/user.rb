@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true, presence: true
   validates :fullname, presence: true
 
+  before_create :generate_token
 
   def normalize_position
     queue_items.each_with_index do |queue_item, index|
@@ -16,5 +17,9 @@ class User < ActiveRecord::Base
 
   def follows?(another_user)
     following_relationships.map(&:leader).include?(another_user)
+  end
+
+  def generate_token
+    self.token = SecureRandom.urlsafe_base64
   end
 end
