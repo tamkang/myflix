@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include Tokenable
+
   has_many :reviews
   has_secure_password validations: false
   has_many :queue_items, order: :position
@@ -6,8 +8,6 @@ class User < ActiveRecord::Base
 
   validates :email, uniqueness: true, presence: true
   validates :fullname, presence: true
-
-  before_create :generate_token
 
   def normalize_position
     queue_items.each_with_index do |queue_item, index|
@@ -19,7 +19,4 @@ class User < ActiveRecord::Base
     following_relationships.map(&:leader).include?(another_user)
   end
 
-  def generate_token
-    self.token = SecureRandom.urlsafe_base64
-  end
 end
