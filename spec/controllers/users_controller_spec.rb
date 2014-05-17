@@ -7,6 +7,33 @@ require 'spec_helper'
   	  end
   	end
 
+    describe "GET show" do
+      it_behaves_like "require sign in" do
+        let(:action) { get :show, id: 3}
+      end
+
+      it "sets @user" do
+        set_current_user
+        wk = Fabricate(:user)
+        get :show, id: wk.id
+        expect(assigns(:user)).to eq(wk)
+      end
+
+      it "sets @queue_item" do
+        set_current_user
+        wk = Fabricate(:user)
+        get :show, id: wk.id
+        expect(assigns(:queue_item)).to eq(wk.queue_items)
+      end
+
+      it "sets @review" do
+        set_current_user
+        wk = Fabricate(:user)
+        get :show, id: wk.id
+        expect(assigns(:review)).to eq(wk.reviews)
+      end
+    end
+
   	describe "POST create" do
       context "with valid input" do
       	it "create users" do
@@ -22,7 +49,7 @@ require 'spec_helper'
       	  expect(response).to redirect_to home_path
       	end
       end
-      context "with invalid input"
+      context "with invalid input" do
         it "shouldn't create the user" do
       	  post :create, user: { fullname: "wk", password: "password"}
       	  expect(User.count).to eq(0)
@@ -35,6 +62,6 @@ require 'spec_helper'
       	  post :create, user: { fullname: "wk", password: "password"}
       	  expect(assigns(:user)).to be_instance_of(User)
         end
-
+      end
   	end
   end
