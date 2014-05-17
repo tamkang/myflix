@@ -17,6 +17,8 @@ Myflix::Application.routes.draw do
   resources :reset_passwords, only:[:show, :create]
   get '/expired_token', to: 'reset_passwords#invalid'
 
+  resources :invitations, only:[:new, :create]
+
   resources :videos, only: [:show, :index] do
     collection do
       get :search, to: 'videos#search'  
@@ -26,6 +28,7 @@ Myflix::Application.routes.draw do
   end
 
   resources :users, only: [:show, :create, :edit, :update]
+  get '/new_with_invitation_token', to: 'users#new_with_invitation_token'
 
 
   resources :categories

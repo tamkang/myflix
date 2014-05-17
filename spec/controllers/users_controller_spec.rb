@@ -64,4 +64,26 @@ require 'spec_helper'
         end
       end
   	end
+
+    describe "GET new_with_invitation_token" do
+      it "renders new template" do
+        invitation = Fabricate(:invitation, token: "12345")
+        get :new_with_invitation_token, token: "12345"
+        expect(response).to render_template :new
+      end
+
+      it "sets @user with recipiant email" do
+        wk = Fabricate(:user)
+        invitation = Fabricate(:invitation, recipiant_email: wk.email, token: "12345")
+        get :new_with_invitation_token, token: "12345"
+        expect(assigns(:user).email).to eq(invitation.recipiant_email)
+      end
+
+      it "redirects_to expired token path for invalid token" do
+        wk = Fabricate(:user)
+        invitation = Fabricate(:invitation, recipiant_email: wk.email, token: "12345")
+        get :new_with_invitation_token, token: "1234"
+        expect(response).to redirect_to expired_token_path
+      end
+    end
   end

@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @queue_item = @user.queue_items
-    @review = @user.reviews 
+    @review = @user.reviews
   end
 
   def create
@@ -20,6 +20,16 @@ class UsersController < ApplicationController
       redirect_to home_path
     else
       render :new
+    end
+  end
+
+  def new_with_invitation_token
+    invitation = Invitation.where(token: params[:token]).first
+    if invitation
+      @user = User.new(email: invitation.recipiant_email)
+      render :new
+    else
+      redirect_to expired_token_path
     end
   end
 
