@@ -12,10 +12,14 @@ Myflix::Application.routes.draw do
   get '/my_queue', to: 'queue_items#index'
   post '/update_queue', to: 'queue_items#update_queue'
   get '/people', to: 'relationships#index'
+  resources :forgot_passwords, only:[:new, :create]
+  get '/forgot_password_confirmation', to: 'forgot_passwords#confirm'
+  resources :reset_passwords, only:[:show, :create]
+  get '/expired_token', to: 'reset_passwords#invalid'
 
   resources :videos, only: [:show, :index] do
     collection do
-      get :search, to: 'videos#search'
+      get :search, to: 'videos#search'  
     end
 
     resources :reviews, only: [:create]
