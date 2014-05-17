@@ -22,5 +22,6 @@ Video.create(title: 'Vid 4122', description: "This is a show about a family.", c
 Video.create(title: 'Vid 41223', description: "This is a show about a family.", category: category, created_at: 1.minutes.ago, small_cover_url: "https://dl.dropbox.com/s/vg4xrmvbgi10cpb/simpsons_small.png", large_cover_url: "https://dl.dropbox.com/s/pqrs0i9b5bwiqs5/simpsons_large.jpg")
 
 User.create(fullname: "wk", email: "wk@example.com", password: "wk")
+User.create(fullname: "wkz", email: "wkz@example.com", password: "wkz")
 
 Review.create(video_id: 1, user_id: 2, rating: 4, content: "not bad!" ) 
