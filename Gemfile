@@ -15,6 +15,8 @@ gem "htmlbeautifier", "~> 0.0.9"
 gem 'fabrication'
 gem 'faker'
 gem 'sidekiq'
+gem 'unicorn'
+
 
 
 
